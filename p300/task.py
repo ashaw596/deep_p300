@@ -119,7 +119,7 @@ print(testX.shape)
 
 batch_size = 128
 nb_classes = 2
-nb_epoch = 10
+nb_epoch = 300
 img_rows, img_cols = 3, 64
 
 if K.image_dim_ordering() == 'th':
