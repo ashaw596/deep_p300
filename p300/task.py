@@ -154,11 +154,13 @@ feature_layers = [
                   input_shape=input_shape),
     Activation('relu'),
     MaxPooling2D(pool_size=(1, 2)),
+    Dropout(0.25),
     Flatten(),
 ]
 classification_layers = [
     Dense(32),
     Activation('relu'),
+    Dropout(0.2),
     Dense(16),
     Activation('relu'),
     Dense(nb_classes),
