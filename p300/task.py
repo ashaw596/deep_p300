@@ -154,16 +154,6 @@ feature_layers = [
                   input_shape=input_shape),
     Activation('relu'),
     MaxPooling2D(pool_size=(1, 2)),
-    Convolution2D(10, 1, 3,
-                  border_mode='same',
-                  input_shape=input_shape),
-    Activation('relu'),
-    MaxPooling2D(pool_size=(1, 2)),
-    Convolution2D(10, 1, 3,
-                  border_mode='same',
-                  input_shape=input_shape),
-    Activation('relu'),
-    MaxPooling2D(pool_size=(1, 2)),
     Flatten(),
 ]
 classification_layers = [
