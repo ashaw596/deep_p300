@@ -117,7 +117,7 @@ print(testX.shape)
 
 #input_shape = (64, 3)
 
-batch_size = 128
+batch_size = 64
 nb_classes = 2
 nb_epoch = 300
 img_rows, img_cols = 3, 64
@@ -195,10 +195,12 @@ def train_model(model, train, test, nb_classes):
                   metrics=['accuracy'])
 
     t = now()
-    model.fit(X_train, Y_train,
+    hist = model.fit(X_train, Y_train,
               batch_size=batch_size, nb_epoch=nb_epoch,
               verbose=1,
               validation_data=(X_test, Y_test))
+    print(hist.history)
+
     print('Training time: %s' % (now() - t))
     score = model.evaluate(X_test, Y_test, verbose=0)
     print('Test score:', score[0])
