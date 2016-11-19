@@ -24,7 +24,7 @@ from keras.utils.np_utils import convert_kernel
 
 from sklearn.metrics import classification_report,confusion_matrix
 
-
+import tensorflow as tf
 import subprocess
 import shutil
 import uuid
