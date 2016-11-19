@@ -24,7 +24,6 @@ from keras.utils.np_utils import convert_kernel
 
 from sklearn.metrics import classification_report,confusion_matrix
 
-import tensorflow as tf
 import subprocess
 import shutil
 import uuid
@@ -53,9 +52,10 @@ np.random.seed(1337)  # for reproducibility
 
 env = json.loads(os.environ.get('TF_CONFIG', '{}'))
 
+
+import tensorflow as tf
 server = tf.train.Server.create_local_server()
 sess = tf.Session(server.target)
-
 K.set_session(sess)
 
 if  args.data_path.startswith('gs://'):
@@ -129,7 +129,7 @@ else:
 
 # input image dimensions
 # number of convolutional filters to use
-nb_filters = 32
+nb_filters = 3
 # size of pooling area for max pooling
 pool_size = 2
 # convolution kernel size
@@ -139,20 +139,39 @@ kernel_size_cols = 3
 print (input_shape)
 # define two groups of layers: feature (convolutions) and classification (dense)
 feature_layers = [
-    Convolution2D(nb_filters, kernel_size_rows, kernel_size_cols,
-                  border_mode='valid',
+    Convolution2D(10, 1, 3,
+                  border_mode='same',
                   input_shape=input_shape),
     Activation('relu'),
-    Convolution2D(nb_filters, kernel_size_rows, kernel_size_cols),
+    MaxPooling2D(pool_size=(1, 2)),
+    Convolution2D(10, 1, 3,
+                  border_mode='same',
+                  input_shape=input_shape),
     Activation('relu'),
-    MaxPooling2D(pool_size=(1, pool_size)),
+    MaxPooling2D(pool_size=(1, 2)),
+    Convolution2D(10, 1, 3,
+                  border_mode='same',
+                  input_shape=input_shape),
+    Activation('relu'),
+    MaxPooling2D(pool_size=(1, 2)),
+    Convolution2D(10, 1, 3,
+                  border_mode='same',
+                  input_shape=input_shape),
+    Activation('relu'),
+    MaxPooling2D(pool_size=(1, 2)),
+    Convolution2D(10, 1, 3,
+                  border_mode='same',
+                  input_shape=input_shape),
+    Activation('relu'),
+    MaxPooling2D(pool_size=(1, 2)),
     Dropout(0.25),
     Flatten(),
 ]
 classification_layers = [
-    Dense(128),
+    Dense(32),
     Activation('relu'),
-    Dropout(0.5),
+    Dense(16),
+    Activation('relu'),
     Dense(nb_classes),
     Activation('softmax')
 ]
