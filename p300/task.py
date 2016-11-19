@@ -73,7 +73,7 @@ else:
     output_path = args.output_path
     args.output_path = None
 
-matlabFile = os.path.join(dataDir, 'data.mat')
+matlabFile = os.path.join(data_path, 'data.mat')
 matlab = sio.loadmat(matlabFile, squeeze_me=True, struct_as_record=False)
 
 data = matlab['data']
