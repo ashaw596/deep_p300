@@ -60,6 +60,7 @@ K.set_session(sess)
 
 if  args.data_path.startswith('gs://'):
     data_path = os.path.join('/tmp/', str(uuid.uuid4()))
+    os.makedirs(data_path)
     subprocess.check_call(['gsutil', '-m', '-q', 'cp', '-r', args.data_path, data_path])
 else:
     data_path = args.data_path
@@ -67,6 +68,7 @@ else:
 
 if  args.output_path.startswith('gs://'):
     output_path = os.path.join('/tmp/', str(uuid.uuid4()))
+    os.makedirs(output_path)
 else:
     output_path = args.output_path
     args.output_path = None
