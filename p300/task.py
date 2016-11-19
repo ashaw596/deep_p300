@@ -139,17 +139,17 @@ kernel_size_cols = 3
 print (input_shape)
 # define two groups of layers: feature (convolutions) and classification (dense)
 feature_layers = [
-    Convolution2D(10, 1, 3,
+    Convolution2D(16, 1, 3,
                   border_mode='same',
                   input_shape=input_shape),
     Activation('relu'),
     MaxPooling2D(pool_size=(1, 2)),
-    Convolution2D(10, 1, 3,
+    Convolution2D(16, 1, 3,
                   border_mode='same',
                   input_shape=input_shape),
     Activation('relu'),
     MaxPooling2D(pool_size=(1, 2)),
-    Convolution2D(10, 1, 3,
+    Convolution2D(16, 1, 3,
                   border_mode='same',
                   input_shape=input_shape),
     Activation('relu'),
