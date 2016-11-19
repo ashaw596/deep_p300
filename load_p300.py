@@ -11,9 +11,7 @@ and 99.2% for the last five digits after transfer + fine-tuning.
 from __future__ import print_function
 import numpy as np
 import datetime
-
-np.random.seed(1337)  # for reproducibility
-
+import scipy.io as sio
 import keras
 from keras.datasets import mnist
 from keras.models import Sequential
@@ -23,6 +21,37 @@ from keras.utils import np_utils
 from keras import backend as K
 from keras.models import load_model
 from keras.utils.np_utils import convert_kernel
+
+import sys
+
+import os
+
+np.random.seed(1337)  # for reproducibility
+
+dataDir = 'data'
+matlabFile = os.path.join(dataDir, 'data.mat')
+matlab = sio.loadmat(matlabFile)
+
+data = matlab['data']
+
+X = data['X'][0][0]
+Y = data['Y'][0][0]
+subject = data['subject'][0][0]
+session = data['session'][0][0]
+
+testX = X[subject>6]
+testY = Y[subject>6]
+trainX = X[subject<=6]
+trainY = Y[subject<=6]
+
+print(X.shape)
+print(Y.shape)
+print(subjects.shape)
+print(sessions.shape)
+
+
+
+"""
 
 
 batch_size = 128
@@ -105,7 +134,6 @@ def test_model(model, test, nb_classes):
     
 test_model(model, (x_test_gte5, y_test_gte5), nb_classes)
 
-"""
 # input image dimensions
 # number of convolutional filters to use
 nb_filters = 32
