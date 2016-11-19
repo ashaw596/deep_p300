@@ -164,7 +164,6 @@ feature_layers = [
                   input_shape=input_shape),
     Activation('relu'),
     MaxPooling2D(pool_size=(1, 2)),
-    Dropout(0.25),
     Flatten(),
 ]
 classification_layers = [
@@ -191,8 +190,8 @@ def train_model(model, train, test, nb_classes):
     X_test = test[0].reshape((test[0].shape[0],) + input_shape)
     X_train = X_train.astype('float32')
     X_test = X_test.astype('float32')
-    X_train /= 255
-    X_test /= 255
+    #X_train /= 255
+    #X_test /= 255
     print('X_train shape:', X_train.shape)
     print(X_train.shape[0], 'train samples')
     print(X_test.shape[0], 'test samples')
