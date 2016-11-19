@@ -61,7 +61,7 @@ K.set_session(sess)
 if  args.data_path.startswith('gs://'):
     data_path = os.path.join('/tmp/', str(uuid.uuid4()))
     os.makedirs(data_path)
-    subprocess.check_call(['gsutil', '-m', '-q', 'cp', '-r', args.data_path, data_path])
+    subprocess.check_call(['gsutil', '-m', '-q', 'cp', '-r', os.path.join(args.data_path, '*'), data_path])
 else:
     data_path = args.data_path
     args.data_path = None
@@ -235,7 +235,7 @@ if  args.data_path:
     shutil.rmtree(data_path, ignore_errors=True)
 
 if  args.output_path:
-    subprocess.check_call(['gsutil', '-m', '-q', 'cp', '-r', output_path, args.output_path])
+    subprocess.check_call(['gsutil', '-m', '-q', 'cp', '-r', os.path.join(output_path, '*'), args.output_path])
     shutil.rmtree(output_path, ignore_errors=True)
 
 
