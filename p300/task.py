@@ -119,7 +119,7 @@ print(testX.shape)
 
 batch_size = 128
 nb_classes = 2
-nb_epoch = 100
+nb_epoch = 10
 img_rows, img_cols = 3, 64
 
 if K.image_dim_ordering() == 'th':
@@ -221,7 +221,7 @@ train_model(model,
             (trainX, trainY),
             (testX, testY), nb_classes)
 
-ask_data = env.get('task', None) or {'type': 'master', 'index': 0}
+task_data = env.get('task', None) or {'type': 'master', 'index': 0}
 task = type('TaskSpec', (object,), task_data)
 
 if (not task or task.type == 'master'):
