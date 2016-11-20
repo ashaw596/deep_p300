@@ -143,6 +143,10 @@ feature_layers = [
                   border_mode='same',
                   input_shape=input_shape),
     Activation('relu'),
+    Convolution2D(16, 1, 3,
+                  border_mode='same',
+                  input_shape=input_shape),
+    Activation('relu'),
     MaxPooling2D(pool_size=(1, 2)),
     Convolution2D(16, 1, 3,
                   border_mode='same',
@@ -158,9 +162,9 @@ feature_layers = [
     Flatten(),
 ]
 classification_layers = [
-    Dense(32),
+    Dense(64),
     Activation('relu'),
-    Dropout(0.2),
+    Dropout(0.5),
     Dense(16),
     Activation('relu'),
     Dense(nb_classes),
