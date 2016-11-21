@@ -23,6 +23,7 @@ from keras.models import load_model
 from keras.utils.np_utils import convert_kernel
 
 from sklearn.metrics import classification_report,confusion_matrix
+from sklearn import preprocessing
 
 import subprocess
 import shutil
@@ -53,10 +54,11 @@ np.random.seed(1337)  # for reproducibility
 env = json.loads(os.environ.get('TF_CONFIG', '{}'))
 
 
-import tensorflow as tf
-server = tf.train.Server.create_local_server()
-sess = tf.Session(server.target)
-K.set_session(sess)
+if True:
+    import tensorflow as tf
+    server = tf.train.Server.create_local_server()
+    sess = tf.Session(server.target)
+    K.set_session(sess)
 
 if  args.data_path.startswith('gs://'):
     data_path = os.path.join('/tmp/', str(uuid.uuid4()))
@@ -80,8 +82,6 @@ data = matlab['data']
 
 X = data.X
 Y = data.Y
-
-
 subject = data.subject
 session = data.session
 
@@ -101,7 +101,6 @@ Y[Y==-1] = 0
 print(1)
 print(X.shape)
 print( )
-training = subject>6;
 print(training)
 print(training.shape)
 testX = X[subject>6, :, :]
@@ -117,10 +116,10 @@ print(testX.shape)
 
 #input_shape = (64, 3)
 
-batch_size = 64
+batch_size = 128
 nb_classes = 2
-nb_epoch = 300
-img_rows, img_cols = 3, 64
+nb_epoch = 10
+img_rows, img_cols = 3, 128
 
 if K.image_dim_ordering() == 'th':
     input_shape = (1, img_rows, img_cols)
@@ -139,34 +138,27 @@ kernel_size_cols = 3
 print (input_shape)
 # define two groups of layers: feature (convolutions) and classification (dense)
 feature_layers = [
-    Convolution2D(16, 1, 3,
+    Convolution2D(32, 3, 3,
+                  border_mode='same',
+                  input_shape=input_shape),
+    Activation('sigmoid'),
+    Convolution2D(32, 1, 8,
                   border_mode='same',
                   input_shape=input_shape),
     Activation('relu'),
-    Convolution2D(16, 1, 3,
+    MaxPooling2D(pool_size=(1, 4)),
+    Convolution2D(32, 1, 8,
                   border_mode='same',
                   input_shape=input_shape),
     Activation('relu'),
-    MaxPooling2D(pool_size=(1, 2)),
-    Convolution2D(16, 1, 3,
-                  border_mode='same',
-                  input_shape=input_shape),
-    Activation('relu'),
-    MaxPooling2D(pool_size=(1, 2)),
-    Convolution2D(16, 1, 3,
-                  border_mode='same',
-                  input_shape=input_shape),
-    Activation('relu'),
-    MaxPooling2D(pool_size=(1, 2)),
+    MaxPooling2D(pool_size=(1, 4)),
     Dropout(0.25),
     Flatten(),
 ]
 classification_layers = [
-    Dense(64),
+    Dense(128),
     Activation('relu'),
     Dropout(0.5),
-    Dense(16),
-    Activation('relu'),
     Dense(nb_classes),
     Activation('softmax')
 ]
