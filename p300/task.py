@@ -98,11 +98,11 @@ X = X[:, channels,:]
 #print(sum(Y))
 Y[Y==-1] = 0 
 #print(sum(Y))
-print(1)
-print(X.shape)
-print( )
-print(training)
-print(training.shape)
+#print(1)
+#print(X.shape)
+#print( )
+#print(training)
+#print(training.shape)
 testX = X[subject>6, :, :]
 testY = Y[subject>6]
 trainX = X[subject<=6, :, :]
