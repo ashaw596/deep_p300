@@ -118,7 +118,7 @@ print(trainX.shape)
 
 batch_size = 128
 nb_classes = 2
-nb_epoch = 200
+nb_epoch = 300
 img_rows, img_cols = 3, 128
 
 if K.image_dim_ordering() == 'th':
