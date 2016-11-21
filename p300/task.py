@@ -113,12 +113,12 @@ trainY = Y[subject<=6]
 
 
 print(testX.shape)
-
+print(trainX.shape)
 #input_shape = (64, 3)
 
 batch_size = 128
 nb_classes = 2
-nb_epoch = 10
+nb_epoch = 200
 img_rows, img_cols = 3, 128
 
 if K.image_dim_ordering() == 'th':
@@ -132,7 +132,7 @@ nb_filters = 3
 # size of pooling area for max pooling
 pool_size = 2
 # convolution kernel size
-kernel_size_rows = 1
+kernel_size_rows =21
 kernel_size_cols = 3
 
 print (input_shape)
