@@ -93,15 +93,14 @@ print(session.shape)
 channels = [31, 12, 15];
 X = X[:, channels,:]
 Y[Y==-1] = 0 
-X = preprocessing.scale(X)
 
 
 print(X.shape)
 #training = subject>6;
 #print(training)
 subject8 = (subject == 8)
-trainSessions = session <= 2
-testSessions = session > 2
+trainSessions = session <= 3
+testSessions = session > 3
 #train = [a and b for a, b in zip(subject8, trainSessions)]
 #test = [a and b for a, b in zip(subject8, testSessions)]
 train = subject8 & trainSessions
@@ -145,22 +144,17 @@ kernel_size_cols = 3
 print (input_shape)
 # define two groups of layers: feature (convolutions) and classification (dense)
 feature_layers = [
-    Convolution2D(16, 1, 3,
-                  border_mode='same',
+    Convolution2D(32, 1, 3,
+                  border_mode='valid',
                   input_shape=input_shape),
-    Activation('relu'),
-    Convolution2D(16, 1, 3,
-                  border_mode='same',
-                  input_shape=input_shape),
-    Activation('relu'),
-    MaxPooling2D(pool_size=(1, 2)),
-    Convolution2D(16, 1, 3,
-                  border_mode='same',
+    Activation('sigmoid'),
+    Convolution2D(32, 1, 3,
+                  border_mode='valid',
                   input_shape=input_shape),
     Activation('relu'),
     MaxPooling2D(pool_size=(1, 2)),
-    Convolution2D(16, 1, 3,
-                  border_mode='same',
+    Convolution2D(64, 3, 3,
+                  border_mode='valid',
                   input_shape=input_shape),
     Activation('relu'),
     MaxPooling2D(pool_size=(1, 2)),
@@ -171,8 +165,6 @@ classification_layers = [
     Dense(64),
     Activation('relu'),
     Dropout(0.5),
-    Dense(16),
-    Activation('relu'),
     Dense(nb_classes),
     Activation('softmax')
 ]
