@@ -120,7 +120,7 @@ print(trainX.shape)
 batch_size = 64
 nb_classes = 2
 nb_epoch = 300
-img_rows, img_cols = 3, 128
+img_rows, img_cols = 3, 64
 
 if K.image_dim_ordering() == 'th':
     input_shape = (1, img_rows, img_cols)
