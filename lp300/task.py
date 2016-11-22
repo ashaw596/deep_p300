@@ -23,6 +23,7 @@ from keras.models import load_model
 from keras.utils.np_utils import convert_kernel
 
 from sklearn.metrics import classification_report,confusion_matrix
+from sklearn import preprocessing
 
 import subprocess
 import shutil
@@ -92,6 +93,7 @@ print(session.shape)
 channels = [31, 12, 15];
 X = X[:, channels,:]
 Y[Y==-1] = 0 
+X = preprocessing.scale(X)
 
 
 print(X.shape)

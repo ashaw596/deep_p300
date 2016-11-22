@@ -92,9 +92,9 @@ print(session.shape)
 # Cz, Pz, Oz
 channels = [31, 12, 15];
 X = X[:, channels,:]
-X = X.reshape((X.shape[0], X.shape[1]*X.shape[2]))
-X = preprocessing.scale(X)
-X = X.reshape((X.shape[0], len(channels), X.shape[1]/len(channels)))
+#X = X.reshape((X.shape[0], X.shape[1]*X.shape[2]))
+#X = preprocessing.scale(X)
+#X = X.reshape((X.shape[0], len(channels), X.shape[1]/len(channels)))
 
 
 
