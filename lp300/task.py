@@ -99,8 +99,8 @@ print(X.shape)
 #training = subject>6;
 #print(training)
 subjects = (subject == 7)
-trainSessions = session <= 3
-testSessions = session > 3
+trainSessions = session <= 2
+testSessions = session > 2
 #train = [a and b for a, b in zip(subject8, trainSessions)]
 #test = [a and b for a, b in zip(subject8, testSessions)]
 train = subjects & trainSessions
