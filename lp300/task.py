@@ -214,10 +214,12 @@ def train_model(model, train, test, nb_classes):
                   metrics=['accuracy'])
 
     t = now()
+    class_weight = {0 : 1., 1: 3.}
     hist = model.fit(X_train, Y_train,
               batch_size=batch_size, nb_epoch=nb_epoch,
               verbose=1,
-              validation_data=(X_test, Y_test))
+              validation_data=(X_test, Y_test),
+              class_weight = class_weight)
     print(hist.history)
 
     print('Training time: %s' % (now() - t))
