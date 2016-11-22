@@ -98,13 +98,13 @@ Y[Y==-1] = 0
 print(X.shape)
 #training = subject>6;
 #print(training)
-subject8 = (subject == 8)
+subjects = (subject == 7)
 trainSessions = session <= 3
 testSessions = session > 3
 #train = [a and b for a, b in zip(subject8, trainSessions)]
 #test = [a and b for a, b in zip(subject8, testSessions)]
-train = subject8 & trainSessions
-test = subject8 & testSessions
+train = subjects & trainSessions
+test = subjects & testSessions
 print(train)
 
 testX = X[test, :, :]
