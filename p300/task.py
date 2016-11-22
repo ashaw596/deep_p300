@@ -159,7 +159,7 @@ feature_layers = [
     Flatten(),
 ]
 classification_layers = [
-    Dense(128),
+    Dense(64),
     Activation('relu'),
     Dropout(0.5),
     Dense(nb_classes),
