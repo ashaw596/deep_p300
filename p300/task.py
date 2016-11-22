@@ -92,6 +92,7 @@ print(session.shape)
 # Cz, Pz, Oz
 channels = [31, 12, 15];
 X = X[:, channels,:]
+X = preprocessing.scale(X)
 
 
 
@@ -116,7 +117,7 @@ print(testX.shape)
 print(trainX.shape)
 #input_shape = (64, 3)
 
-batch_size = 128
+batch_size = 64
 nb_classes = 2
 nb_epoch = 300
 img_rows, img_cols = 3, 128
@@ -132,31 +133,36 @@ nb_filters = 3
 # size of pooling area for max pooling
 pool_size = 2
 # convolution kernel size
-kernel_size_rows =21
+kernel_size_rows = 1
 kernel_size_cols = 3
 
 print (input_shape)
 # define two groups of layers: feature (convolutions) and classification (dense)
 feature_layers = [
-    Convolution2D(32, 3, 3,
+    Convolution2D(16, 1, 3,
                   border_mode='valid',
                   input_shape=input_shape),
     Activation('sigmoid'),
-    Convolution2D(32, 1, 8,
+    Convolution2D(16, 1, 3,
                   border_mode='valid',
                   input_shape=input_shape),
     Activation('relu'),
-    MaxPooling2D(pool_size=(1, 4)),
-    Convolution2D(32, 1, 8,
+    MaxPooling2D(pool_size=(1, 2)),
+    Convolution2D(16, 1, 3,
                   border_mode='valid',
                   input_shape=input_shape),
     Activation('relu'),
-    MaxPooling2D(pool_size=(1, 4)),
+    MaxPooling2D(pool_size=(1, 2)),
+    Convolution2D(16, 1, 3,
+                  border_mode='valid',
+                  input_shape=input_shape),
+    Activation('relu'),
+    MaxPooling2D(pool_size=(1, 2)),
     Dropout(0.25),
     Flatten(),
 ]
 classification_layers = [
-    Dense(32),
+    Dense(64),
     Activation('relu'),
     Dropout(0.5),
     Dense(16),
